@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=640" />
+
+    <link rel="stylesheet" href="stylesheets/core.css" media="screen"/>
+    <link rel="stylesheet" href="stylesheets/mobile.css" media="handheld, only screen and (max-device-width:640px)"/>
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css"/>
+
+    <script type="text/javascript" src="javascripts/modernizr.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script type="text/javascript" src="javascripts/headsmart.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $('#main_content').headsmart()
+      })
+    </script>
+    <title>mongo-express by andzdroid</title>
+  </head>
+
+  <body>
+    <a id="forkme_banner" href="https://github.com/andzdroid/mongo-express">View on GitHub</a>
+    <div class="shell">
+
+      <header>
+        <span class="ribbon-outer">
+          <span class="ribbon-inner">
+            <h1>mongo-express</h1>
+            <h2>Web-based MongoDB admin interface, written with Node.js and express</h2>
+          </span>
+          <span class="left-tail"></span>
+          <span class="right-tail"></span>
+        </span>
+      </header>
+
+      <section id="downloads">
+        <span class="inner">
+          <a href="https://github.com/andzdroid/mongo-express/zipball/master" class="zip"><em>download</em> .ZIP</a><a href="https://github.com/andzdroid/mongo-express/tarball/master" class="tgz"><em>download</em> .TGZ</a>
+        </span>
+      </section>
+
+
+      <span class="banner-fix"></span>
+
+
+      <section id="main_content">
+        <h1>mongo-express</h1>
+
+<p>Web-based MongoDB admin interface written with Node.js and express</p>
+
+<p><a href="http://travis-ci.org/andzdroid/mongo-express"><img src="https://secure.travis-ci.org/andzdroid/mongo-express.png?branch=master" alt="Build Status"></a> - Master (stable) branch</p>
+
+<p><a href="http://travis-ci.org/andzdroid/mongo-express"><img src="https://secure.travis-ci.org/andzdroid/mongo-express.png?branch=develop" alt="Build Status"></a> - Develop branch</p>
+
+<h2>Features</h2>
+
+<p>Current features:</p>
+
+<ul>
+<li>Connect to multiple databases</li>
+<li>Connect and authenticate to individual databases</li>
+<li>Authenticate as admin to view all databases</li>
+<li>Database blacklist/whitelist</li>
+<li>View/add/rename/delete collections</li>
+<li>View/add/update/delete documents</li>
+<li>Use BSON data types in documents</li>
+</ul><p>Planned features:</p>
+
+<ul>
+<li>Support for replica set connections</li>
+<li>Web-based command-line interface</li>
+<li>Site authentication</li>
+<li>REST interface</li>
+</ul><h2>Limitations</h2>
+
+<ul>
+<li>Documents must have document._id property to be edited</li>
+<li>No GridFS support (might become a planned feature)</li>
+<li>Binary BSON data type not tested</li>
+</ul><p>Recommend only using mongo-express for development purposes as an ad-hoc MongoDB viewer.</p>
+
+<h2>Screenshots</h2>
+
+<p><img src="http://i.imgur.com/DOi3b.png" title="Viewing documents in a collection"></p>
+
+<p>Click here for more screenshots: 
+<a href="http://imgur.com/a/OTZHe">http://imgur.com/a/OTZHe</a></p>
+
+<p>These screenshots are from version 0.11.0.</p>
+
+<h2>Usage</h2>
+
+<p><strong>To install:</strong></p>
+
+<pre><code>npm install mongo-express
+</code></pre>
+
+<p>Or if you want to install a global copy:</p>
+
+<pre><code>npm install -g mongo-express
+</code></pre>
+
+<p><strong>To configure:</strong></p>
+
+<p>Copy <code>config.default.js</code> into a new file called <code>config.js</code>.</p>
+
+<p>Fill in your MongoDB connection details, and any other options you want to change.</p>
+
+<p><strong>To run:</strong></p>
+
+<pre><code>node app
+</code></pre>
+
+<p><strong>To use:</strong></p>
+
+<p>Visit <code>http://localhost:8081</code> or whatever URL/port you entered into your config.</p>
+
+<h2>BSON Data Types</h2>
+
+<p>The following BSON data types are supported in the mongo-express document editor/viewer.</p>
+
+<p><strong>Native Javascript Types</strong></p>
+
+<p>Strings, numbers, lists, booleans, null, etc.</p>
+
+<p>All numbers in Javascript are 64-bit floating points.</p>
+
+<p><strong>ObjectID/ObjectId</strong></p>
+
+<pre><code>ObjectID()
+</code></pre>
+
+<p>Creates a new Object ID type.</p>
+
+<pre><code>ObjectID(id)
+</code></pre>
+
+<p>Use Object ID with the given 24-digit hexadecimal string.</p>
+
+<p><strong>ISODate</strong></p>
+
+<pre><code>ISODate()
+</code></pre>
+
+<p>Creates a new ISODate object with current time.</p>
+
+<p><code>new Date()</code> can also be used (note the <code>new</code> keyword there).</p>
+
+<pre><code>ISODate(timestamp)
+</code></pre>
+
+<p>Uses ISODate object with the given timestamp.</p>
+
+<p><strong>DBRef/Dbref</strong></p>
+
+<pre><code>DBRef(collection, objectID)
+
+DBRef(collection, objectID, database)
+</code></pre>
+
+<p>Object ID is the ID string, not the ObjectID type.</p>
+
+<p>The database value is optional.</p>
+
+<p><strong>Timestamp</strong></p>
+
+<pre><code>Timestamp()
+</code></pre>
+
+<p>Creates a new Timestamp object with a value of 0.</p>
+
+<pre><code>Timestamp(time, ordinal)
+</code></pre>
+
+<p>Example: <code>Timestamp(ISODate(), 0)</code>.</p>
+
+<p>See <a href="http://www.mongodb.org/display/DOCS/Timestamp+data+type">http://www.mongodb.org/display/DOCS/Timestamp+data+type</a> for more info about the Timestamp data type.</p>
+
+<p><strong>Code</strong></p>
+
+<pre><code>Code(code)
+</code></pre>
+
+<p>Code can be a native Javascript function, or it can be a string.</p>
+
+<p>Specifying a scope/context is not supported.</p>
+
+<p><strong>MinKey</strong></p>
+
+<pre><code>MinKey()
+</code></pre>
+
+<p><strong>MaxKey</strong></p>
+
+<pre><code>MaxKey()
+</code></pre>
+
+<p><strong>Symbol</strong></p>
+
+<pre><code>Symbol(string)
+</code></pre>
+
+<hr><p>Not tested:</p>
+
+<ul>
+<li>Binary/BinData</li>
+</ul><p>Here is an example of a document which can be read/edited in mongo-express:</p>
+
+<pre><code>{
+  "_id": ObjectID(), // or ObjectId()
+  "dates": {
+    "date": ISODate("2012-05-14T16:20:09.314Z"),
+    "new_date": ISODate(),
+    "alternative": new Date()
+  },
+  "bool": true,
+  "string": "hello world!",
+  "list of numbers": [
+    123,
+    111e+87,
+    4.4,
+    -12345.765
+  ],
+  "reference": DBRef("collection", "4fb1299686a989240b000001"),
+  "ts": Timestamp(ISODate(), 1),
+  "minkey": MinKey(),
+  "maxkey": MaxKey(),
+  "func": Code(function() { alert('Hello World!') }),
+  "symbol": Symbol("test")
+}
+</code></pre>
+
+<h2>License</h2>
+
+<p>MIT License</p>
+
+<p>Copyright (c) 2012 Chun-hao Hu</p>
+
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
+
+<p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
+
+<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+      </section>
+
+      <footer>
+        <span class="ribbon-outer">
+          <span class="ribbon-inner">
+            <p>this project by <a href="https://github.com/andzdroid">andzdroid</a> can be found on <a href="https://github.com/andzdroid/mongo-express">GitHub</a></p>
+          </span>
+          <span class="left-tail"></span>
+          <span class="right-tail"></span>
+        </span>
+        <p>Generated with <a href="http://pages.github.com">GitHub Pages</a> using Merlot</p>
+        <span class="octocat"></span>
+      </footer>
+
+    </div>
+
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-596992-21");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
