@@ -4,7 +4,7 @@ var
   ;
 
 var
-    config = require('./config')
+    config = require('../../mongo-ui-config')
   , middleware = require('./middleware')
   ;
 
